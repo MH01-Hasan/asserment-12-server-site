@@ -42,8 +42,17 @@ async function run() {
     //GEt  Find Multiple Documents Client site read code//
 
 
+    //GEt  Find Multiple review Client site read code//
+        app.get('/review',async(req, res) =>{
+            const cursor = reviewColloction.find({});
+            const review= await cursor.toArray();
+            res.send(review)
+        })
+    //GEt Find Multiple review Client site read code//
 
-    // GET Find single Document Client site read code//
+
+
+    // GET Find single data deatails Document Client site read code//
      app.get('/Product/:id',async (req, res) =>{
         const id = req.params.id;
         const query = {_id:ObjectId(id)};
@@ -51,7 +60,7 @@ async function run() {
         res.send(Product)
      })
 
-    // GET Find single Document Client site read code//
+    // GET Find single data deatails  Document Client site read code//
 
 
 
@@ -88,9 +97,6 @@ async function run() {
         })
     // POST Api Creact//
 
-
-
-
   //Order/Booking api// 
             app.post('/order',async(req, res)=>{
               const order = req.body;
@@ -110,29 +116,27 @@ async function run() {
 
 //******************** All Post Api  ********************************* */
 
+//***************** All Delete Api *************************************** */
+
+//Delete all order api  code//
+      app.delete('/order/:id', async (req, res)=>{
+        const id = req.params.id;
+        const query = {_id:ObjectId(id)};
+        const result = await orderColloction.deleteOne(query)
+        res.json(result)
+      })
+//Delete all order api  code//
+
+//my order deletapi code //
+    app.delete('/myOrder/:id', async (req, res)=>{
+      const id = req.params.id;
+      const query = {_id:ObjectId(id)};
+      const result = await orderColloction.deleteOne(query)
+      res.json(result)
+    })
+//my order deletapi code //
+//***************** All Delete Api *************************************** */
     
-
-
-    //Delete APi code//
-    //   app.delete('/order/:id', async (req, res)=>{
-    //     const id = req.params.id;
-    //     const query = {_id:ObjectId(id)};
-    //     const result = await orderColloction.deleteOne(query)
-    //     res.json(result)
-    //   })
-    //Delete APi code//
-
-    //my order//booking delet code //
-    // app.delete('/myOrder/:id', async (req, res)=>{
-    //   const id = req.params.id;
-    //   const query = {_id:ObjectId(id)};
-    //   const result = await orderColloction.deleteOne(query)
-    //   res.json(result)
-    // })
-
-
-
-    //my order delet code //
     
       } 
       
@@ -143,19 +147,9 @@ async function run() {
 }
 
 run().catch(console.dir);
-
-
-
-
-
-
 app.get('/', (req, res) => {
     res.send('Hello World!')
-  })
-
-
-
-  
+  });
   app.listen(port, () => {
     console.log("Example" , port)
-  })
+  });
