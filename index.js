@@ -153,6 +153,18 @@ async function run() {
     //user make admin//
 
 
+
+    // check admin or not
+      app.get("/checkAdmin/:email", async (req, res) => {
+        const result = await userColloction
+          .find({ email: req.params.email })
+          .toArray();
+        res.send(result);
+      });
+
+  /// all order
+
+
 //******************** All Post Api  ********************************* */
 
 //***************** All Delete Api *************************************** */
