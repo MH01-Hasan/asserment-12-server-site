@@ -30,6 +30,7 @@ async function run() {
         const ProductColloction = database.collection("Product");
         const orderColloction = database.collection("order");
         const reviewColloction = database.collection("review");
+        const  userColloction = database.collection("user");
 
 //****************** All Get Api code ********************************************/
 
@@ -73,6 +74,15 @@ async function run() {
     //find booking data//
 
 
+    //user data//
+    app.get('/user',async(req, res) =>{
+      const cursor = userColloction.find({});
+      const user= await cursor.toArray();
+      res.send(user[0])
+  })
+    //find booking data//
+
+
 
     //find  a single  order data//
     app.get("/myOrder/:email", async (req, res) => {
@@ -83,6 +93,8 @@ async function run() {
     });
 
     //find  a single  order data//
+
+    
 
 
     //****************** All Get Api code  End ********************************************/
@@ -113,6 +125,33 @@ async function run() {
       res.send(result);  
   })
     //reveiw api//
+
+
+
+    // userinfo api//
+    app.post('/user',async(req, res)=>{
+      const user = req.body;
+      const result = await userColloction.insertOne(user);
+      res.send(result);  
+  })
+    //userinfo api//
+
+
+    //user make admin//
+    app.put('/makeadmin', async (req ,res) => {
+      const filter = {email:req.body.email};
+      const resualt = await userColloction .find(filter).toArray();
+      if(resualt){
+        const documents = await userColloction.updateOne(filter,{
+          $set :{role:"admin"},
+        })
+      }
+      console.log(documents)
+    }
+   
+    )
+    //user make admin//
+
 
 //******************** All Post Api  ********************************* */
 
