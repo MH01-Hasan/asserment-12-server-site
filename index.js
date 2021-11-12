@@ -169,6 +169,16 @@ async function run() {
 
 //***************** All Delete Api *************************************** */
 
+//Manage  product  api  code//
+      app.delete('/Product/:id', async (req, res)=>{
+        const id = req.params.id;
+        const query = {_id:ObjectId(id)};
+        const result = await ProductColloction.deleteOne(query)
+        res.json(result)
+      })
+//Delete all order api  code//
+
+
 //Delete all order api  code//
       app.delete('/order/:id', async (req, res)=>{
         const id = req.params.id;
